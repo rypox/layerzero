@@ -1,0 +1,5 @@
+virtual_environment_endpoint = "https://192.168.0.2:8006/"
+virtual_environment_token     = "terraform-prov@pve!tokenid=<your-token-value>"
+
+virtual_environment_username = "terraform-prov@pve"
+virtual_environment_password = "<plain-text-password>"

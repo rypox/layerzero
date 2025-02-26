@@ -50,3 +50,34 @@ pveum user token add "$API_USER" "tokenid" --comment "create token"
 └──────────────┴────────────────────────────────────────┘
 ```
 Use the token value in terraform.tfvars for variable virtual_environment_token.
+
+## VM provisioning
+
+use terraform to provision the virtual machines on proxmox
+### connection to proxmox
+* uses provider plugin bpg/proxmox
+* provider.tf
+### provisioning nodes
+* master.tf
+* worker.tf
+* storage.tf
+### terraform variables
+* variable definition: variables.tf
+* variable values: terraform.tfvars (cloned from terraform.tfvars-sample)
+### installation
+* set values in terraform.tfvars
+* run the script vm-install.sh
+* watch the VMs being created
+* in case of errors use debug logging to support troubleshooting
+```
+export TF_LOG_PATH="terraform.log"
+export TF_LOG=DEBUG
+```
+
+* the script executes these steps
+```
+terraform init
+terraform plan
+terraform apply --auto-approve
+```
+* VMs are created with vmid 5000 and above

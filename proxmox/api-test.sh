@@ -1,11 +1,12 @@
 #!/bin/bash
 
-#make sample request to proxmox api
+# make sample request to proxmox api
+# run it on any host with network access to your proxmox host
+
 # Proxmox API settings
 PROXMOX_HOST=
 API_USER=
 API_PASSWORD=
-
 # Load environment variables from .env file
 set -a
 source .env
