@@ -1,0 +1,30 @@
+#cloud-config
+users:
+  - name: janpfeil
+    ssh_authorized_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE7gub5h20KSU6PJNX1XFxTcWoxXQRjbOQsVoGjo9joS jan.pfeil@rypox.net
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    shell: /bin/bash
+
+package_update: true
+packages:
+  - htop
+  - git
+  - qemu-guest-agent
+
+runcmd:
+  - [ sh, -c, "echo 'initialized!' > /home/janpfeil/init.txt" ]
+  - [ sh, -c, "systemctl enable qemu-guest-agent" ]
+  - [ sh, -c, "systemctl start qemu-guest-agent" ]
+
+network-config:
+  version: 2
+  ethernets:
+    enp0s18:
+      dhcp4: true
+      #      addresses:
+      #        - 192.168.0.100/24
+      #      gateway4: 192.168.0.19
+      #      nameservers:
+      #          addresses: [8.8.8.8, 8.8.4.4]
+      dhcp6: true
