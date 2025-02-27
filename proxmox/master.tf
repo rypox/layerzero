@@ -62,8 +62,6 @@ resource "proxmox_virtual_environment_vm" "k8s_master" {
       }
     }
 
-#     user_data_file_id = proxmox_virtual_environment_file.user_data_cloud_config.id
-#     user_data_file_id = proxmox_virtual_environment_file.cloud_init-config.id
     user_data_file_id = "storage:snippets/cloud-init-config.yaml"
   }
 
@@ -77,55 +75,3 @@ resource "proxmox_virtual_environment_vm" "k8s_master" {
     type = "serial0"
   }
 }
-
-# output "vm_ipv4_address" {
-#   value = proxmox_virtual_environment_vm.k8s_master[count.index].ipv4_addresses[1][0]
-# }
-
-# data "local_file" "ssh_public_key" {
-#   filename = "./id_rsa.pub"
-# }
-
-# resource "proxmox_virtual_environment_file" "cloud_init-config" {
-#   content_type = "snippets"
-#   datastore_id = "storage"
-#   node_name    = "proxmox"
-#   source_file {
-#     path = "cloud-init-config.yaml"
-#   }
-# }
-
-# resource "proxmox_virtual_environment_file" "user_data_cloud_config" {
-#   content_type = "snippets"
-#   datastore_id = "storage"
-#   node_name    = "proxmox"
-#
-#   source_raw {
-#     data = <<-EOF
-#     #cloud-config
-#     hostname: test-ubuntu
-#     users:
-#       - default
-#       - name: janpfeil
-#         groups:
-#           - sudo
-#         shell: /bin/bash
-#         ssh_authorized_keys:
-#           - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIE7gub5h20KSU6PJNX1XFxTcWoxXQRjbOQsVoGjo9joS jan.pfeil@rypox.net
-#         sudo: ALL=(ALL) NOPASSWD:ALL
-#
-#     package_update: true
-#         packages:
-#         - htop
-#         - git
-#         - qemu-guest-agent
-#
-#     runcmd:
-#         - systemctl enable qemu-guest-agent
-#         - systemctl start qemu-guest-agent
-#         - echo "done" > /tmp/cloud-config.done
-#     EOF
-#
-#     file_name = "user-data-cloud-config.yaml"
-#   }
-# }

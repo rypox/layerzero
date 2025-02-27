@@ -61,8 +61,6 @@ resource "proxmox_virtual_environment_vm" "k8s_storage" {
       }
     }
 
-#     user_data_file_id = proxmox_virtual_environment_file.user_data_cloud_config.id
-#     user_data_file_id = proxmox_virtual_environment_file.cloud_init-config.id
     user_data_file_id = "storage:snippets/cloud-init-config.yaml"
   }
 
